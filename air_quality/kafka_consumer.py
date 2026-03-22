@@ -58,3 +58,4 @@ def kafka_consumer_and_load():
 
 if __name__ == "__main__":
     kafka_consumer_and_load()
+    
