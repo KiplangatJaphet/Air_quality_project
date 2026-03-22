@@ -1,10 +1,10 @@
-# 🌍 Air Quality Data Pipeline
+# Air Quality Data Pipeline
 
 A real-time data pipeline that extracts air quality metrics from the Open-Meteo API for Kenyan cities, streams the data through Apache Kafka, stores it in MongoDB and PostgreSQL, and enables downstream analytics.
 
 ---
 
-## 📐 Architecture
+## Architecture
 
 ```
 Open-Meteo API
@@ -36,7 +36,7 @@ kafka_consumer.py     ← Consumes messages and inserts into PostgreSQL
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 air_quality/
@@ -53,7 +53,7 @@ air_quality/
 
 ---
 
-## 🌐 Data Source
+## Data Source
 
 **Open-Meteo Air Quality API** — free, no API key required.
 
@@ -78,7 +78,7 @@ air_quality/
 
 ---
 
-## ⚙️ Prerequisites
+## Prerequisites
 
 - Python 3.8+
 - Docker and Docker Compose
@@ -87,7 +87,7 @@ air_quality/
 
 ---
 
-## 🐍 Python Dependencies
+## Python Dependencies
 
 Install all required packages:
 
@@ -97,7 +97,7 @@ pip install pandas requests pymongo psycopg2-binary kafka-python python-dotenv
 
 ---
 
-## 🔐 Environment Variables
+## Environment Variables
 
 This project uses a `.env` file to manage all credentials securely. The `.env` file is listed in `.gitignore` and is **never committed to GitHub**.
 
@@ -156,11 +156,7 @@ __pycache__/
 venv/
 ```
 
-> ⚠️ **Never remove `.env` from `.gitignore`** — doing so would expose your MongoDB and PostgreSQL passwords publicly on GitHub.
-
----
-
-## 🐳 Docker Setup (Kafka)
+##  Docker Setup (Kafka)
 
 Start Zookeeper, Kafka, and Kafka UI:
 
@@ -186,7 +182,7 @@ docker-compose down
 
 ---
 
-## 🗄️ PostgreSQL Setup
+##  PostgreSQL Setup
 
 Create the database and table before running the consumer:
 
@@ -212,7 +208,7 @@ CREATE TABLE measurements (
 
 ---
 
-## 🚀 Running the Pipeline
+##  Running the Pipeline
 
 Run each step in a separate terminal window in this order:
 
@@ -238,7 +234,7 @@ python kafka_producer.py
 
 ---
 
-## 📂 File Descriptions
+##  File Descriptions
 
 ### `extract.py`
 Calls the Open-Meteo Air Quality API for Nairobi and Mombasa and returns a combined Pandas DataFrame with hourly readings for all 7 air quality metrics.
@@ -263,7 +259,7 @@ Stores all sensitive credentials for MongoDB and PostgreSQL. This file is exclud
 
 ---
 
-## 🔍 Monitoring
+## Monitoring
 
 **Kafka UI** — view topics, messages, and consumer groups:
 ```
@@ -285,7 +281,7 @@ python mongo_extract.py
 
 ---
 
-## 🛠️ Troubleshooting
+##  Troubleshooting
 
 | Problem | Fix |
 |---------|-----|
@@ -296,19 +292,4 @@ python mongo_extract.py
 | `kafka_producer.py` sends 0 records | Run `load.py` first to populate today's MongoDB collection |
 | `.env` variables returning `None` | Make sure `.env` is in the same folder as the Python files |
 
----
 
-## 📈 Future Improvements
-
-- Containerise Python scripts with Docker
-- Add Grafana dashboard for real-time visualisation
-- Extend to more Kenyan cities
-- Add data quality checks and alerting
-- Schedule `load.py` with a proper task scheduler (e.g. Apache Airflow)
-
----
-
-## 👤 Author
-
-**Japhet Kiplagat**
-GitHub: [@KiplangatJaphet](https://github.com/KiplangatJaphet)
