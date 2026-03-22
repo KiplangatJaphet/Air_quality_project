@@ -1,3 +1,7 @@
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
 from kafka import KafkaConsumer
 import json
 import psycopg2
@@ -12,13 +16,12 @@ def kafka_consumer_and_load():
         value_deserializer=lambda x: json.loads(x.decode('utf-8')) if x and x != b'' and x != b'\x00' else None
     )
     
-    
     conn = psycopg2.connect(
-        host='localhost',
-        port=5432,
-        dbname='air_quality',
-        user='postgres',
-        password='mypassword'
+        host=os.getenv("PG_HOST"),
+        port=int(os.getenv("PG_PORT")),
+        dbname=os.getenv("PG_DB"),
+        user=os.getenv("PG_USER"),
+        password=os.getenv("PG_PASSWORD")
     )
     conn.autocommit = True
     cursor = conn.cursor()

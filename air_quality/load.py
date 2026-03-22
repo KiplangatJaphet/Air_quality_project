@@ -1,3 +1,7 @@
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
 import pandas as pd
 import requests
 from datetime import date
@@ -8,12 +12,13 @@ from extract import extracting
 
 def loading(combined_df):
     
-    
-    password = "password123&4"
+    password = os.getenv("MONGO_PASSWORD")
+    user = os.getenv("MONGO_USER")
+    cluster = os.getenv("MONGO_CLUSTER")
     encoded_password = quote_plus(password)
     
-    mongo_url = f"mongodb+srv://kiplangatjaphet2:{encoded_password}@cluster0.b8r5142.mongodb.net/?appName=Cluster0"
-    db_name = "air_quality_db"
+    mongo_url = f"mongodb+srv://{user}:{encoded_password}@{cluster}/?appName=Cluster0"
+    db_name = os.getenv("MONGO_DB")
     collection_name = f"measurements{date.today()}"
 
     client = pymongo.MongoClient(mongo_url)
@@ -28,10 +33,7 @@ def loading(combined_df):
     client.close()
     
 while True:
- 
   combined_df = extracting()
   loading(combined_df)
-
   print("Sleeping for 1 hour......")
-  
   time.sleep(3600)
