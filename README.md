@@ -281,15 +281,6 @@ python mongo_extract.py
 
 ---
 
-##  Troubleshooting
 
-| Problem | Fix |
-|---------|-----|
-| Kafka connection refused | Make sure `docker-compose up -d` is running |
-| MongoDB authentication error | Check your password encoding — special characters need `quote_plus()` |
-| PostgreSQL connection error | Verify credentials in your `.env` file |
-| Empty DataFrame from MongoDB | Check that `load.py` has run today and inserted data |
-| `kafka_producer.py` sends 0 records | Run `load.py` first to populate today's MongoDB collection |
-| `.env` variables returning `None` | Make sure `.env` is in the same folder as the Python files |
 
 
